@@ -49,18 +49,19 @@
 
   .name {
     margin: 0;
-    font-size: 1.25rem;
-    font-weight: 500;
-    letter-spacing: -.01em;
+    font-family: "Space Mono", ui-monospace, Menlo, monospace;
+    font-size: .7rem;
+    font-weight: 400;
+    letter-spacing: .22em;
+    color: var(--muted);
   }
 
   .soon {
-    margin: .95rem 0 0;
-    font-family: "Space Mono", ui-monospace, Menlo, monospace;
-    font-size: .7rem;
-    letter-spacing: .22em;
+    margin: 1.15rem 0 0;
+    font-size: clamp(1.9rem, 7vw, 2.9rem);
+    font-weight: 400;
+    letter-spacing: -.02em;
     text-transform: lowercase;
-    color: var(--muted);
   }
 
   /* The one bit of fun: the dots keep arriving, soon never does. */
@@ -98,7 +99,7 @@
   <main>
     <h1 class="name">Abhiraj Tiwari</h1>
     <p class="soon">coming soon<i>.</i><i>.</i><i>.</i></p>
-    <p class="mail"><a href="mailto:tiwari325@gatech.edu">tiwari325@gatech.edu</a></p>
+    <p class="mail"><a href="mailto:atiwari325@gatech.edu">atiwari325@gatech.edu</a></p>
   </main>
 </body>
 </html>
