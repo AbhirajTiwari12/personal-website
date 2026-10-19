@@ -12,15 +12,15 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:     #0c0908;
-    --fg:     #f3efed;
-    --body:   #a8a19d;
-    --muted:  #78716c;
-    --dim:    #4b4440;
-    --spark:  #fff6f2;
+    --bg:     #1b1512;
+    --fg:     #f8f2ef;
+    --body:   #b5aaa4;
+    --muted:  #887c76;
+    --dim:    #5e544e;
+    --spark:  #fff1ea;
 
     --accent:     #ff6b4a;
-    --accent-dim: #c9573c;
+    --accent-dim: #d4654a;
 
     --sans: "Space Grotesk", ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
     --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -42,23 +42,36 @@
   }
 
   /* ---------- ambient field ---------- */
-  /* Fixed specks that fade up and down out of sync. Nothing travels. */
+  /* Each speck drifts on two axes at different periods, so it wanders a slow
+     loop instead of sliding back and forth along one line. */
 
   .field {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
+    overflow: hidden;
   }
 
-  .field i {
+  .field > i {
     position: absolute;
+    display: block;
+    animation: driftx var(--ax) ease-in-out var(--tx) infinite alternate;
+  }
+
+  .field > i > i {
+    display: block;
     border-radius: 50%;
     opacity: var(--o0);
-    animation: twinkle var(--d) ease-in-out var(--t) infinite;
+    animation:
+      drifty var(--ay) ease-in-out var(--ty) infinite alternate,
+      pulse   var(--ao) ease-in-out var(--to) infinite;
   }
 
-  @keyframes twinkle {
+  @keyframes driftx { to { transform: translateX(var(--dx)); } }
+  @keyframes drifty { to { transform: translateY(var(--dy)); } }
+
+  @keyframes pulse {
     0%, 100% { opacity: var(--o0); }
     50%      { opacity: var(--o1); }
   }
@@ -172,7 +185,7 @@
   footer { animation-delay: .5s; }
 
   @media (prefers-reduced-motion: reduce) {
-    .field i, main > *, ol > li { animation: none; }
+    .field > i, .field > i > i, main > *, ol > li { animation: none; }
   }
 
   @media (max-width: 30rem) {
@@ -182,141 +195,118 @@
 </head>
 <body>
 <div class="field">
-<i style="left:32.38%;top:15.08%;width:2px;height:2px;background:var(--spark);--o0:0.083;--o1:0.362;--d:5.5s;--t:6.6s"></i>
-<i style="left:3.75%;top:43.36%;width:2px;height:2px;background:var(--accent);--o0:0.074;--o1:0.621;--d:6.0s;--t:2.9s"></i>
-<i style="left:62.74%;top:94.77%;width:1px;height:1px;background:var(--spark);--o0:0.118;--o1:0.273;--d:11.9s;--t:3.8s"></i>
-<i style="left:14.43%;top:11.78%;width:1px;height:1px;background:var(--spark);--o0:0.054;--o1:0.423;--d:10.1s;--t:4.8s"></i>
-<i style="left:54.77%;top:6.28%;width:1px;height:1px;background:var(--accent);--o0:0.094;--o1:0.485;--d:7.5s;--t:7.6s"></i>
-<i style="left:45.32%;top:29.98%;width:1px;height:1px;background:var(--spark);--o0:0.06;--o1:0.421;--d:9.2s;--t:11.4s"></i>
-<i style="left:72.94%;top:28.79%;width:2px;height:2px;background:var(--spark);--o0:0.073;--o1:0.472;--d:6.2s;--t:6.4s"></i>
-<i style="left:3.92%;top:66.82%;width:1px;height:1px;background:var(--spark);--o0:0.11;--o1:0.348;--d:10.6s;--t:7.7s"></i>
-<i style="left:57.99%;top:45.62%;width:1px;height:1px;background:var(--spark);--o0:0.078;--o1:0.446;--d:5.5s;--t:9.1s"></i>
-<i style="left:64.71%;top:99.31%;width:1px;height:1px;background:var(--spark);--o0:0.071;--o1:0.447;--d:5.2s;--t:6.0s"></i>
-<i style="left:16.8%;top:11.71%;width:1px;height:1px;background:var(--accent);--o0:0.05;--o1:0.424;--d:8.1s;--t:11.3s"></i>
-<i style="left:8.06%;top:44.92%;width:1px;height:1px;background:var(--spark);--o0:0.106;--o1:0.502;--d:7.2s;--t:5.4s"></i>
-<i style="left:35.88%;top:88.42%;width:2px;height:2px;background:var(--spark);--o0:0.054;--o1:0.325;--d:6.9s;--t:6.3s"></i>
-<i style="left:58.91%;top:26.27%;width:1px;height:1px;background:var(--accent);--o0:0.07;--o1:0.533;--d:12.6s;--t:9.0s"></i>
-<i style="left:51.55%;top:61.76%;width:2px;height:2px;background:var(--spark);--o0:0.112;--o1:0.478;--d:12.0s;--t:10.4s"></i>
-<i style="left:39.24%;top:39.9%;width:1px;height:1px;background:var(--accent);--o0:0.045;--o1:0.363;--d:6.7s;--t:2.1s"></i>
-<i style="left:34.01%;top:5.26%;width:2px;height:2px;background:var(--accent);--o0:0.048;--o1:0.464;--d:5.2s;--t:11.4s"></i>
-<i style="left:61.41%;top:14.86%;width:1px;height:1px;background:var(--spark);--o0:0.069;--o1:0.294;--d:11.8s;--t:12.9s"></i>
-<i style="left:46.6%;top:48.38%;width:2px;height:2px;background:var(--accent);--o0:0.067;--o1:0.43;--d:11.6s;--t:2.1s"></i>
-<i style="left:2.31%;top:95.1%;width:2px;height:2px;background:var(--spark);--o0:0.083;--o1:0.268;--d:9.2s;--t:12.7s"></i>
-<i style="left:86.33%;top:69.62%;width:1px;height:1px;background:var(--spark);--o0:0.053;--o1:0.476;--d:9.3s;--t:10.1s"></i>
-<i style="left:32.97%;top:22.3%;width:1px;height:1px;background:var(--spark);--o0:0.108;--o1:0.486;--d:11.5s;--t:9.6s"></i>
-<i style="left:22.67%;top:51.76%;width:2px;height:2px;background:var(--spark);--o0:0.042;--o1:0.338;--d:7.1s;--t:9.0s"></i>
-<i style="left:95.65%;top:44.72%;width:1px;height:1px;background:var(--spark);--o0:0.116;--o1:0.362;--d:6.8s;--t:2.9s"></i>
-<i style="left:19.67%;top:20.44%;width:1px;height:1px;background:var(--spark);--o0:0.107;--o1:0.394;--d:10.2s;--t:10.4s"></i>
-<i style="left:8.48%;top:66.06%;width:1px;height:1px;background:var(--spark);--o0:0.1;--o1:0.394;--d:6.4s;--t:10.3s"></i>
-<i style="left:33.25%;top:80.08%;width:1px;height:1px;background:var(--spark);--o0:0.072;--o1:0.525;--d:10.8s;--t:2.2s"></i>
-<i style="left:12.7%;top:15.12%;width:1px;height:1px;background:var(--spark);--o0:0.052;--o1:0.491;--d:12.8s;--t:8.5s"></i>
-<i style="left:35.04%;top:54.87%;width:2px;height:2px;background:var(--accent);--o0:0.118;--o1:0.561;--d:9.2s;--t:12.1s"></i>
-<i style="left:43.38%;top:87.17%;width:1px;height:1px;background:var(--spark);--o0:0.06;--o1:0.342;--d:6.9s;--t:7.6s"></i>
-<i style="left:25.94%;top:41.9%;width:1px;height:1px;background:var(--accent);--o0:0.068;--o1:0.496;--d:9.7s;--t:11.8s"></i>
-<i style="left:42.06%;top:91.77%;width:1px;height:1px;background:var(--spark);--o0:0.082;--o1:0.265;--d:8.5s;--t:2.4s"></i>
-<i style="left:0.39%;top:79.92%;width:1px;height:1px;background:var(--accent);--o0:0.098;--o1:0.529;--d:7.6s;--t:6.7s"></i>
-<i style="left:55.54%;top:78.43%;width:1px;height:1px;background:var(--accent);--o0:0.06;--o1:0.434;--d:11.2s;--t:6.6s"></i>
-<i style="left:56.17%;top:76.0%;width:1px;height:1px;background:var(--spark);--o0:0.089;--o1:0.402;--d:9.1s;--t:9.0s"></i>
-<i style="left:45.23%;top:53.33%;width:1px;height:1px;background:var(--spark);--o0:0.096;--o1:0.505;--d:12.5s;--t:3.4s"></i>
-<i style="left:55.95%;top:94.33%;width:2px;height:2px;background:var(--spark);--o0:0.05;--o1:0.384;--d:5.6s;--t:3.1s"></i>
-<i style="left:7.31%;top:66.95%;width:1px;height:1px;background:var(--spark);--o0:0.052;--o1:0.461;--d:10.3s;--t:1.9s"></i>
-<i style="left:88.28%;top:96.75%;width:1px;height:1px;background:var(--accent);--o0:0.072;--o1:0.506;--d:12.9s;--t:10.8s"></i>
-<i style="left:16.15%;top:43.15%;width:1px;height:1px;background:var(--spark);--o0:0.056;--o1:0.349;--d:10.8s;--t:0.3s"></i>
-<i style="left:55.41%;top:44.05%;width:1px;height:1px;background:var(--accent);--o0:0.09;--o1:0.514;--d:5.5s;--t:12.8s"></i>
-<i style="left:78.84%;top:97.17%;width:1px;height:1px;background:var(--accent);--o0:0.043;--o1:0.605;--d:7.2s;--t:1.7s"></i>
-<i style="left:42.23%;top:91.14%;width:1px;height:1px;background:var(--spark);--o0:0.052;--o1:0.517;--d:9.6s;--t:9.1s"></i>
-<i style="left:8.95%;top:5.75%;width:1px;height:1px;background:var(--spark);--o0:0.046;--o1:0.523;--d:10.1s;--t:10.4s"></i>
-<i style="left:8.37%;top:85.62%;width:1px;height:1px;background:var(--accent);--o0:0.076;--o1:0.455;--d:9.4s;--t:12.0s"></i>
-<i style="left:26.79%;top:12.92%;width:1px;height:1px;background:var(--spark);--o0:0.049;--o1:0.305;--d:5.4s;--t:2.6s"></i>
-<i style="left:31.2%;top:30.5%;width:1px;height:1px;background:var(--spark);--o0:0.08;--o1:0.31;--d:7.8s;--t:0.2s"></i>
-<i style="left:25.04%;top:1.53%;width:1px;height:1px;background:var(--spark);--o0:0.055;--o1:0.393;--d:12.5s;--t:1.4s"></i>
-<i style="left:81.89%;top:43.22%;width:1px;height:1px;background:var(--spark);--o0:0.071;--o1:0.402;--d:10.5s;--t:12.8s"></i>
-<i style="left:34.27%;top:83.23%;width:1px;height:1px;background:var(--spark);--o0:0.072;--o1:0.357;--d:5.4s;--t:1.7s"></i>
-<i style="left:7.07%;top:74.09%;width:2px;height:2px;background:var(--spark);--o0:0.047;--o1:0.496;--d:12.0s;--t:8.7s"></i>
-<i style="left:28.19%;top:24.22%;width:1px;height:1px;background:var(--spark);--o0:0.053;--o1:0.385;--d:7.1s;--t:12.5s"></i>
-<i style="left:97.26%;top:54.71%;width:1px;height:1px;background:var(--spark);--o0:0.065;--o1:0.36;--d:5.0s;--t:5.0s"></i>
-<i style="left:47.46%;top:50.28%;width:1px;height:1px;background:var(--accent);--o0:0.04;--o1:0.43;--d:5.7s;--t:5.2s"></i>
-<i style="left:4.17%;top:2.25%;width:1px;height:1px;background:var(--spark);--o0:0.087;--o1:0.408;--d:11.0s;--t:8.5s"></i>
-<i style="left:71.6%;top:87.91%;width:1px;height:1px;background:var(--spark);--o0:0.119;--o1:0.302;--d:10.8s;--t:8.4s"></i>
-<i style="left:4.38%;top:83.53%;width:1px;height:1px;background:var(--spark);--o0:0.099;--o1:0.487;--d:6.1s;--t:6.8s"></i>
-<i style="left:50.44%;top:83.49%;width:1px;height:1px;background:var(--spark);--o0:0.087;--o1:0.51;--d:10.5s;--t:9.0s"></i>
-<i style="left:22.99%;top:3.12%;width:1px;height:1px;background:var(--accent);--o0:0.048;--o1:0.624;--d:9.5s;--t:8.2s"></i>
-<i style="left:62.62%;top:68.07%;width:2px;height:2px;background:var(--spark);--o0:0.104;--o1:0.47;--d:9.0s;--t:7.0s"></i>
-<i style="left:65.93%;top:6.61%;width:1px;height:1px;background:var(--spark);--o0:0.046;--o1:0.334;--d:10.8s;--t:2.7s"></i>
-<i style="left:73.98%;top:97.57%;width:1px;height:1px;background:var(--spark);--o0:0.078;--o1:0.451;--d:11.1s;--t:8.0s"></i>
-<i style="left:64.28%;top:7.75%;width:1px;height:1px;background:var(--accent);--o0:0.099;--o1:0.444;--d:9.5s;--t:0.2s"></i>
-<i style="left:6.07%;top:26.88%;width:1px;height:1px;background:var(--spark);--o0:0.094;--o1:0.341;--d:9.1s;--t:6.0s"></i>
-<i style="left:46.63%;top:11.85%;width:1px;height:1px;background:var(--spark);--o0:0.118;--o1:0.522;--d:5.1s;--t:6.0s"></i>
-<i style="left:81.99%;top:96.81%;width:1px;height:1px;background:var(--spark);--o0:0.057;--o1:0.525;--d:6.7s;--t:7.6s"></i>
-<i style="left:14.17%;top:52.41%;width:2px;height:2px;background:var(--spark);--o0:0.106;--o1:0.402;--d:12.1s;--t:9.1s"></i>
-<i style="left:23.14%;top:89.77%;width:2px;height:2px;background:var(--spark);--o0:0.04;--o1:0.398;--d:8.6s;--t:3.9s"></i>
-<i style="left:14.07%;top:34.4%;width:1px;height:1px;background:var(--spark);--o0:0.04;--o1:0.47;--d:11.7s;--t:1.6s"></i>
-<i style="left:92.64%;top:71.3%;width:1px;height:1px;background:var(--spark);--o0:0.07;--o1:0.37;--d:13.0s;--t:7.7s"></i>
-<i style="left:36.07%;top:42.81%;width:2px;height:2px;background:var(--spark);--o0:0.048;--o1:0.494;--d:7.3s;--t:12.2s"></i>
-<i style="left:24.93%;top:26.57%;width:1px;height:1px;background:var(--spark);--o0:0.07;--o1:0.528;--d:12.1s;--t:10.6s"></i>
-<i style="left:63.09%;top:91.34%;width:1px;height:1px;background:var(--spark);--o0:0.098;--o1:0.274;--d:10.9s;--t:5.9s"></i>
-<i style="left:75.27%;top:64.45%;width:2px;height:2px;background:var(--spark);--o0:0.114;--o1:0.296;--d:8.8s;--t:4.5s"></i>
-<i style="left:29.78%;top:73.9%;width:1px;height:1px;background:var(--spark);--o0:0.092;--o1:0.344;--d:9.5s;--t:5.1s"></i>
-<i style="left:16.73%;top:16.17%;width:1px;height:1px;background:var(--accent);--o0:0.08;--o1:0.415;--d:12.3s;--t:13.0s"></i>
-<i style="left:45.0%;top:13.96%;width:2px;height:2px;background:var(--accent);--o0:0.067;--o1:0.371;--d:6.9s;--t:3.4s"></i>
-<i style="left:56.96%;top:88.73%;width:1px;height:1px;background:var(--spark);--o0:0.073;--o1:0.407;--d:8.0s;--t:4.4s"></i>
-<i style="left:6.21%;top:27.75%;width:2px;height:2px;background:var(--spark);--o0:0.08;--o1:0.436;--d:11.9s;--t:2.8s"></i>
-<i style="left:27.1%;top:24.85%;width:1px;height:1px;background:var(--spark);--o0:0.116;--o1:0.498;--d:12.0s;--t:0.3s"></i>
-<i style="left:3.22%;top:70.95%;width:1px;height:1px;background:var(--spark);--o0:0.087;--o1:0.26;--d:8.1s;--t:12.0s"></i>
-<i style="left:82.56%;top:85.55%;width:1px;height:1px;background:var(--spark);--o0:0.049;--o1:0.303;--d:9.2s;--t:8.9s"></i>
-<i style="left:94.15%;top:72.17%;width:1px;height:1px;background:var(--spark);--o0:0.077;--o1:0.414;--d:5.3s;--t:10.2s"></i>
-<i style="left:23.26%;top:91.99%;width:1px;height:1px;background:var(--spark);--o0:0.05;--o1:0.331;--d:10.1s;--t:9.1s"></i>
-<i style="left:11.21%;top:7.04%;width:1px;height:1px;background:var(--spark);--o0:0.071;--o1:0.323;--d:9.8s;--t:0.1s"></i>
-<i style="left:30.15%;top:46.07%;width:1px;height:1px;background:var(--spark);--o0:0.111;--o1:0.393;--d:6.9s;--t:3.2s"></i>
-<i style="left:96.06%;top:70.47%;width:2px;height:2px;background:var(--spark);--o0:0.08;--o1:0.449;--d:8.4s;--t:3.3s"></i>
-<i style="left:66.74%;top:92.52%;width:2px;height:2px;background:var(--spark);--o0:0.067;--o1:0.378;--d:10.5s;--t:2.6s"></i>
-<i style="left:79.71%;top:73.91%;width:1px;height:1px;background:var(--spark);--o0:0.118;--o1:0.347;--d:11.6s;--t:3.0s"></i>
-<i style="left:22.14%;top:76.05%;width:1px;height:1px;background:var(--spark);--o0:0.08;--o1:0.312;--d:6.8s;--t:5.4s"></i>
-<i style="left:66.53%;top:94.88%;width:1px;height:1px;background:var(--accent);--o0:0.057;--o1:0.671;--d:6.1s;--t:0.7s"></i>
-<i style="left:6.01%;top:39.33%;width:1px;height:1px;background:var(--spark);--o0:0.099;--o1:0.539;--d:12.5s;--t:4.3s"></i>
-<i style="left:18.55%;top:93.59%;width:2px;height:2px;background:var(--spark);--o0:0.093;--o1:0.366;--d:8.0s;--t:4.3s"></i>
-<i style="left:16.93%;top:0.29%;width:1px;height:1px;background:var(--spark);--o0:0.116;--o1:0.295;--d:12.7s;--t:2.7s"></i>
-<i style="left:35.66%;top:82.16%;width:1px;height:1px;background:var(--spark);--o0:0.044;--o1:0.393;--d:8.0s;--t:12.0s"></i>
-<i style="left:19.3%;top:36.42%;width:2px;height:2px;background:var(--spark);--o0:0.073;--o1:0.487;--d:11.1s;--t:0.5s"></i>
-<i style="left:3.49%;top:6.26%;width:1px;height:1px;background:var(--spark);--o0:0.1;--o1:0.512;--d:7.7s;--t:3.5s"></i>
-<i style="left:95.77%;top:61.7%;width:1px;height:1px;background:var(--spark);--o0:0.065;--o1:0.337;--d:5.0s;--t:9.8s"></i>
-<i style="left:91.65%;top:63.4%;width:2px;height:2px;background:var(--spark);--o0:0.059;--o1:0.393;--d:12.7s;--t:12.4s"></i>
-<i style="left:38.65%;top:25.1%;width:1px;height:1px;background:var(--spark);--o0:0.114;--o1:0.311;--d:11.4s;--t:9.6s"></i>
-<i style="left:82.28%;top:77.28%;width:1px;height:1px;background:var(--spark);--o0:0.066;--o1:0.361;--d:11.3s;--t:1.0s"></i>
-<i style="left:19.73%;top:75.29%;width:2px;height:2px;background:var(--spark);--o0:0.043;--o1:0.415;--d:7.6s;--t:12.7s"></i>
-<i style="left:88.35%;top:98.78%;width:2px;height:2px;background:var(--spark);--o0:0.048;--o1:0.4;--d:10.7s;--t:5.8s"></i>
-<i style="left:23.42%;top:41.68%;width:1px;height:1px;background:var(--spark);--o0:0.1;--o1:0.497;--d:10.3s;--t:1.6s"></i>
-<i style="left:84.09%;top:29.38%;width:1px;height:1px;background:var(--spark);--o0:0.099;--o1:0.316;--d:7.0s;--t:3.2s"></i>
-<i style="left:15.33%;top:88.42%;width:1px;height:1px;background:var(--spark);--o0:0.072;--o1:0.538;--d:9.1s;--t:3.0s"></i>
-<i style="left:80.84%;top:65.33%;width:2px;height:2px;background:var(--spark);--o0:0.078;--o1:0.489;--d:11.7s;--t:11.9s"></i>
-<i style="left:4.04%;top:29.37%;width:1px;height:1px;background:var(--accent);--o0:0.118;--o1:0.538;--d:12.4s;--t:4.8s"></i>
-<i style="left:86.61%;top:44.91%;width:1px;height:1px;background:var(--spark);--o0:0.116;--o1:0.29;--d:9.8s;--t:8.1s"></i>
-<i style="left:21.76%;top:36.87%;width:1px;height:1px;background:var(--accent);--o0:0.06;--o1:0.544;--d:10.2s;--t:2.6s"></i>
-<i style="left:1.14%;top:32.72%;width:1px;height:1px;background:var(--spark);--o0:0.065;--o1:0.317;--d:11.4s;--t:7.1s"></i>
-<i style="left:6.33%;top:10.14%;width:1px;height:1px;background:var(--spark);--o0:0.091;--o1:0.286;--d:6.3s;--t:9.0s"></i>
-<i style="left:40.98%;top:28.33%;width:1px;height:1px;background:var(--spark);--o0:0.065;--o1:0.419;--d:7.9s;--t:5.4s"></i>
-<i style="left:86.42%;top:99.66%;width:1px;height:1px;background:var(--spark);--o0:0.098;--o1:0.317;--d:5.0s;--t:11.7s"></i>
-<i style="left:42.38%;top:82.04%;width:1px;height:1px;background:var(--spark);--o0:0.077;--o1:0.306;--d:5.1s;--t:7.2s"></i>
-<i style="left:64.07%;top:90.98%;width:1px;height:1px;background:var(--accent);--o0:0.07;--o1:0.512;--d:6.2s;--t:3.7s"></i>
-<i style="left:52.12%;top:92.55%;width:1px;height:1px;background:var(--accent);--o0:0.104;--o1:0.669;--d:6.6s;--t:1.6s"></i>
-<i style="left:94.31%;top:97.55%;width:2px;height:2px;background:var(--spark);--o0:0.114;--o1:0.369;--d:12.2s;--t:8.1s"></i>
-<i style="left:82.46%;top:16.03%;width:1px;height:1px;background:var(--spark);--o0:0.072;--o1:0.497;--d:11.6s;--t:2.4s"></i>
-<i style="left:21.81%;top:39.97%;width:1px;height:1px;background:var(--spark);--o0:0.05;--o1:0.329;--d:10.8s;--t:11.7s"></i>
-<i style="left:4.11%;top:56.23%;width:2px;height:2px;background:var(--spark);--o0:0.107;--o1:0.293;--d:9.8s;--t:7.2s"></i>
-<i style="left:62.7%;top:30.62%;width:1px;height:1px;background:var(--spark);--o0:0.074;--o1:0.444;--d:8.6s;--t:5.7s"></i>
-<i style="left:2.34%;top:61.89%;width:1px;height:1px;background:var(--spark);--o0:0.101;--o1:0.478;--d:8.7s;--t:2.3s"></i>
-<i style="left:47.32%;top:10.71%;width:1px;height:1px;background:var(--accent);--o0:0.047;--o1:0.49;--d:9.1s;--t:0.5s"></i>
-<i style="left:63.64%;top:8.22%;width:1px;height:1px;background:var(--spark);--o0:0.081;--o1:0.275;--d:9.0s;--t:4.9s"></i>
-<i style="left:95.09%;top:13.62%;width:1px;height:1px;background:var(--spark);--o0:0.099;--o1:0.488;--d:6.5s;--t:12.8s"></i>
-<i style="left:49.19%;top:95.66%;width:2px;height:2px;background:var(--spark);--o0:0.103;--o1:0.521;--d:5.5s;--t:4.6s"></i>
-<i style="left:75.62%;top:15.88%;width:1px;height:1px;background:var(--spark);--o0:0.105;--o1:0.3;--d:9.0s;--t:12.0s"></i>
-<i style="left:20.83%;top:26.29%;width:1px;height:1px;background:var(--spark);--o0:0.043;--o1:0.311;--d:6.3s;--t:12.2s"></i>
-<i style="left:67.97%;top:89.54%;width:1px;height:1px;background:var(--accent);--o0:0.049;--o1:0.52;--d:10.1s;--t:4.7s"></i>
-<i style="left:87.3%;top:55.52%;width:1px;height:1px;background:var(--spark);--o0:0.048;--o1:0.538;--d:10.0s;--t:5.1s"></i>
-<i style="left:79.77%;top:26.48%;width:1px;height:1px;background:var(--spark);--o0:0.069;--o1:0.474;--d:8.5s;--t:2.3s"></i>
-<i style="left:74.36%;top:4.83%;width:1px;height:1px;background:var(--spark);--o0:0.091;--o1:0.536;--d:9.7s;--t:8.6s"></i>
-<i style="left:31.26%;top:0.18%;width:2px;height:2px;background:var(--accent);--o0:0.089;--o1:0.487;--d:9.1s;--t:11.6s"></i>
-<i style="left:13.2%;top:22.73%;width:2px;height:2px;background:var(--spark);--o0:0.04;--o1:0.359;--d:5.9s;--t:4.6s"></i>
+<i style="left:44.14%;top:55.1%;--dx:75px;--ax:27.8s;--tx:-30.1s"><i style="width:3px;height:3px;background:var(--spark);--dy:-40px;--ay:25.0s;--ty:-3.0s;--o0:0.18;--o1:0.41;--ao:13.3s;--to:-10.4s"></i></i>
+<i style="left:2.27%;top:98.18%;--dx:-84px;--ax:21.0s;--tx:-1.1s"><i style="width:1px;height:1px;background:var(--spark);--dy:-32px;--ay:17.6s;--ty:-14.8s;--o0:0.2;--o1:0.62;--ao:10.7s;--to:-9.6s"></i></i>
+<i style="left:48.98%;top:65.57%;--dx:115px;--ax:23.6s;--tx:-11.0s"><i style="width:2px;height:2px;background:var(--spark);--dy:-75px;--ay:17.4s;--ty:-2.2s;--o0:0.25;--o1:0.49;--ao:13.6s;--to:-5.8s"></i></i>
+<i style="left:95.72%;top:84.43%;--dx:-72px;--ax:28.9s;--tx:-25.6s"><i style="width:2px;height:2px;background:var(--accent);--dy:56px;--ay:16.8s;--ty:-10.8s;--o0:0.18;--o1:0.45;--ao:9.7s;--to:-13.8s"></i></i>
+<i style="left:11.73%;top:70.12%;--dx:48px;--ax:21.0s;--tx:-5.0s"><i style="width:3px;height:3px;background:var(--accent);--dy:-58px;--ay:26.9s;--ty:-20.6s;--o0:0.16;--o1:0.59;--ao:7.9s;--to:-4.0s"></i></i>
+<i style="left:97.03%;top:79.95%;--dx:-49px;--ax:20.1s;--tx:-0.4s"><i style="width:2px;height:2px;background:var(--spark);--dy:-31px;--ay:21.4s;--ty:-19.5s;--o0:0.26;--o1:0.49;--ao:6.7s;--to:-3.1s"></i></i>
+<i style="left:62.93%;top:-0.42%;--dx:44px;--ax:19.9s;--tx:-23.8s"><i style="width:1px;height:1px;background:var(--spark);--dy:84px;--ay:20.3s;--ty:-9.9s;--o0:0.17;--o1:0.55;--ao:12.5s;--to:-2.4s"></i></i>
+<i style="left:62.16%;top:54.5%;--dx:83px;--ax:19.3s;--tx:-9.7s"><i style="width:3px;height:3px;background:var(--spark);--dy:31px;--ay:22.7s;--ty:-23.7s;--o0:0.19;--o1:0.5;--ao:14.1s;--to:-7.4s"></i></i>
+<i style="left:51.05%;top:92.78%;--dx:-73px;--ax:36.3s;--tx:-0.6s"><i style="width:2px;height:2px;background:var(--spark);--dy:-47px;--ay:16.9s;--ty:-8.6s;--o0:0.2;--o1:0.4;--ao:7.6s;--to:-5.5s"></i></i>
+<i style="left:56.36%;top:11.42%;--dx:87px;--ax:36.4s;--tx:-13.6s"><i style="width:3px;height:3px;background:var(--spark);--dy:-68px;--ay:22.0s;--ty:-10.0s;--o0:0.14;--o1:0.55;--ao:6.7s;--to:-1.0s"></i></i>
+<i style="left:29.73%;top:11.93%;--dx:94px;--ax:36.2s;--tx:-26.0s"><i style="width:3px;height:3px;background:var(--accent);--dy:-81px;--ay:19.7s;--ty:-28.8s;--o0:0.26;--o1:0.59;--ao:13.1s;--to:-13.0s"></i></i>
+<i style="left:56.43%;top:61.75%;--dx:-83px;--ax:19.4s;--tx:-15.8s"><i style="width:1px;height:1px;background:var(--spark);--dy:-34px;--ay:17.9s;--ty:-10.6s;--o0:0.27;--o1:0.57;--ao:10.1s;--to:-6.9s"></i></i>
+<i style="left:53.21%;top:50.91%;--dx:-73px;--ax:19.4s;--tx:-25.1s"><i style="width:2px;height:2px;background:var(--spark);--dy:-92px;--ay:27.8s;--ty:-15.6s;--o0:0.27;--o1:0.48;--ao:7.3s;--to:-9.2s"></i></i>
+<i style="left:50.88%;top:74.88%;--dx:106px;--ax:22.3s;--tx:-30.5s"><i style="width:3px;height:3px;background:var(--spark);--dy:55px;--ay:25.0s;--ty:-24.1s;--o0:0.17;--o1:0.44;--ao:8.0s;--to:-13.8s"></i></i>
+<i style="left:19.41%;top:11.72%;--dx:-111px;--ax:19.4s;--tx:-35.2s"><i style="width:2px;height:2px;background:var(--spark);--dy:83px;--ay:22.0s;--ty:-26.6s;--o0:0.19;--o1:0.53;--ao:12.0s;--to:-10.7s"></i></i>
+<i style="left:83.87%;top:61.73%;--dx:105px;--ax:22.9s;--tx:-24.7s"><i style="width:2px;height:2px;background:var(--spark);--dy:-73px;--ay:19.7s;--ty:-18.0s;--o0:0.23;--o1:0.49;--ao:7.7s;--to:-11.5s"></i></i>
+<i style="left:25.17%;top:77.48%;--dx:43px;--ax:31.4s;--tx:-18.1s"><i style="width:2px;height:2px;background:var(--spark);--dy:92px;--ay:16.8s;--ty:-5.7s;--o0:0.14;--o1:0.51;--ao:12.4s;--to:-2.7s"></i></i>
+<i style="left:25.78%;top:33.27%;--dx:-66px;--ax:36.6s;--tx:-4.9s"><i style="width:1px;height:1px;background:var(--spark);--dy:-34px;--ay:26.7s;--ty:-14.5s;--o0:0.23;--o1:0.63;--ao:9.4s;--to:-8.5s"></i></i>
+<i style="left:87.69%;top:79.27%;--dx:87px;--ax:35.2s;--tx:-35.1s"><i style="width:3px;height:3px;background:var(--spark);--dy:-35px;--ay:28.2s;--ty:-4.0s;--o0:0.17;--o1:0.49;--ao:6.8s;--to:-4.6s"></i></i>
+<i style="left:97.63%;top:93.09%;--dx:75px;--ax:28.6s;--tx:-18.5s"><i style="width:2px;height:2px;background:var(--spark);--dy:-58px;--ay:27.6s;--ty:-0.9s;--o0:0.25;--o1:0.4;--ao:13.2s;--to:-2.6s"></i></i>
+<i style="left:32.17%;top:78.37%;--dx:111px;--ax:31.5s;--tx:-16.7s"><i style="width:2px;height:2px;background:var(--accent);--dy:67px;--ay:27.4s;--ty:-17.9s;--o0:0.26;--o1:0.64;--ao:7.5s;--to:-7.7s"></i></i>
+<i style="left:90.54%;top:24.16%;--dx:-59px;--ax:28.0s;--tx:-7.6s"><i style="width:1px;height:1px;background:var(--spark);--dy:-93px;--ay:23.9s;--ty:-17.1s;--o0:0.21;--o1:0.55;--ao:6.2s;--to:-14.5s"></i></i>
+<i style="left:50.63%;top:38.86%;--dx:-74px;--ax:28.3s;--tx:-36.4s"><i style="width:1px;height:1px;background:var(--spark);--dy:-32px;--ay:20.9s;--ty:-29.5s;--o0:0.18;--o1:0.51;--ao:7.1s;--to:-6.5s"></i></i>
+<i style="left:81.2%;top:89.86%;--dx:-50px;--ax:19.7s;--tx:-0.9s"><i style="width:2px;height:2px;background:var(--spark);--dy:-90px;--ay:27.8s;--ty:-6.2s;--o0:0.17;--o1:0.57;--ao:8.9s;--to:-5.3s"></i></i>
+<i style="left:61.22%;top:8.7%;--dx:92px;--ax:30.3s;--tx:-23.4s"><i style="width:2px;height:2px;background:var(--spark);--dy:30px;--ay:28.7s;--ty:-17.2s;--o0:0.26;--o1:0.53;--ao:8.0s;--to:-3.2s"></i></i>
+<i style="left:53.38%;top:57.84%;--dx:-60px;--ax:21.1s;--tx:-7.4s"><i style="width:2px;height:2px;background:var(--accent);--dy:88px;--ay:27.8s;--ty:-3.1s;--o0:0.26;--o1:0.49;--ao:6.8s;--to:-5.8s"></i></i>
+<i style="left:42.35%;top:94.0%;--dx:-67px;--ax:29.0s;--tx:-31.2s"><i style="width:2px;height:2px;background:var(--spark);--dy:-34px;--ay:19.8s;--ty:-11.6s;--o0:0.24;--o1:0.56;--ao:9.1s;--to:-15.0s"></i></i>
+<i style="left:82.96%;top:79.89%;--dx:-96px;--ax:20.9s;--tx:-31.9s"><i style="width:2px;height:2px;background:var(--spark);--dy:38px;--ay:16.9s;--ty:-31.7s;--o0:0.27;--o1:0.41;--ao:6.6s;--to:-14.3s"></i></i>
+<i style="left:45.13%;top:76.0%;--dx:76px;--ax:24.8s;--tx:-1.6s"><i style="width:3px;height:3px;background:var(--spark);--dy:42px;--ay:25.0s;--ty:-6.4s;--o0:0.2;--o1:0.48;--ao:9.3s;--to:-13.8s"></i></i>
+<i style="left:59.7%;top:7.67%;--dx:-99px;--ax:21.0s;--tx:-13.0s"><i style="width:2px;height:2px;background:var(--spark);--dy:66px;--ay:24.1s;--ty:-24.4s;--o0:0.18;--o1:0.41;--ao:12.7s;--to:-2.4s"></i></i>
+<i style="left:93.25%;top:11.59%;--dx:96px;--ax:32.2s;--tx:-13.0s"><i style="width:1px;height:1px;background:var(--spark);--dy:-55px;--ay:14.3s;--ty:-15.0s;--o0:0.14;--o1:0.48;--ao:11.7s;--to:-9.4s"></i></i>
+<i style="left:21.67%;top:94.36%;--dx:-87px;--ax:25.2s;--tx:-24.4s"><i style="width:2px;height:2px;background:var(--spark);--dy:-64px;--ay:32.0s;--ty:-22.4s;--o0:0.25;--o1:0.65;--ao:6.2s;--to:-9.2s"></i></i>
+<i style="left:73.36%;top:24.18%;--dx:-86px;--ax:22.3s;--tx:-20.9s"><i style="width:2px;height:2px;background:var(--spark);--dy:-35px;--ay:30.2s;--ty:-16.3s;--o0:0.28;--o1:0.54;--ao:15.0s;--to:-9.6s"></i></i>
+<i style="left:80.57%;top:5.77%;--dx:109px;--ax:37.4s;--tx:-20.6s"><i style="width:2px;height:2px;background:var(--spark);--dy:-54px;--ay:29.3s;--ty:-19.1s;--o0:0.2;--o1:0.52;--ao:8.6s;--to:-6.0s"></i></i>
+<i style="left:29.86%;top:52.1%;--dx:88px;--ax:33.2s;--tx:-24.1s"><i style="width:2px;height:2px;background:var(--spark);--dy:30px;--ay:24.1s;--ty:-13.1s;--o0:0.24;--o1:0.39;--ao:8.8s;--to:-6.0s"></i></i>
+<i style="left:57.34%;top:71.75%;--dx:92px;--ax:22.1s;--tx:-35.6s"><i style="width:2px;height:2px;background:var(--spark);--dy:93px;--ay:22.9s;--ty:-23.1s;--o0:0.21;--o1:0.65;--ao:13.4s;--to:-9.1s"></i></i>
+<i style="left:9.74%;top:61.67%;--dx:-63px;--ax:26.3s;--tx:-17.3s"><i style="width:2px;height:2px;background:var(--spark);--dy:-36px;--ay:25.7s;--ty:-8.4s;--o0:0.22;--o1:0.5;--ao:13.0s;--to:-8.0s"></i></i>
+<i style="left:99.76%;top:95.17%;--dx:43px;--ax:30.1s;--tx:-10.3s"><i style="width:2px;height:2px;background:var(--spark);--dy:81px;--ay:19.8s;--ty:-21.9s;--o0:0.22;--o1:0.55;--ao:11.7s;--to:-11.3s"></i></i>
+<i style="left:17.36%;top:23.39%;--dx:-85px;--ax:25.9s;--tx:-3.9s"><i style="width:2px;height:2px;background:var(--spark);--dy:-46px;--ay:24.8s;--ty:-17.3s;--o0:0.15;--o1:0.4;--ao:12.1s;--to:-8.3s"></i></i>
+<i style="left:62.37%;top:36.06%;--dx:62px;--ax:18.6s;--tx:-30.7s"><i style="width:2px;height:2px;background:var(--spark);--dy:-84px;--ay:15.3s;--ty:-20.0s;--o0:0.25;--o1:0.44;--ao:9.8s;--to:-3.9s"></i></i>
+<i style="left:80.61%;top:35.63%;--dx:58px;--ax:24.8s;--tx:-33.3s"><i style="width:1px;height:1px;background:var(--spark);--dy:-57px;--ay:14.8s;--ty:-2.5s;--o0:0.15;--o1:0.54;--ao:10.4s;--to:-10.3s"></i></i>
+<i style="left:28.48%;top:77.1%;--dx:-90px;--ax:31.6s;--tx:-5.4s"><i style="width:2px;height:2px;background:var(--accent);--dy:77px;--ay:18.4s;--ty:-11.4s;--o0:0.24;--o1:0.57;--ao:7.1s;--to:-10.6s"></i></i>
+<i style="left:56.07%;top:91.69%;--dx:77px;--ax:21.6s;--tx:-27.7s"><i style="width:2px;height:2px;background:var(--spark);--dy:59px;--ay:31.4s;--ty:-16.5s;--o0:0.15;--o1:0.61;--ao:6.2s;--to:-10.2s"></i></i>
+<i style="left:57.65%;top:79.21%;--dx:78px;--ax:32.9s;--tx:-10.7s"><i style="width:2px;height:2px;background:var(--spark);--dy:-40px;--ay:29.7s;--ty:-0.7s;--o0:0.21;--o1:0.53;--ao:11.1s;--to:-14.5s"></i></i>
+<i style="left:64.42%;top:80.04%;--dx:98px;--ax:22.7s;--tx:-11.9s"><i style="width:1px;height:1px;background:var(--accent);--dy:-50px;--ay:15.0s;--ty:-0.8s;--o0:0.23;--o1:0.48;--ao:13.3s;--to:-6.3s"></i></i>
+<i style="left:70.64%;top:47.88%;--dx:66px;--ax:24.0s;--tx:-18.5s"><i style="width:2px;height:2px;background:var(--spark);--dy:82px;--ay:15.6s;--ty:-25.8s;--o0:0.15;--o1:0.55;--ao:6.4s;--to:-11.4s"></i></i>
+<i style="left:98.54%;top:33.61%;--dx:-106px;--ax:31.9s;--tx:-16.0s"><i style="width:3px;height:3px;background:var(--accent);--dy:-63px;--ay:28.2s;--ty:-13.5s;--o0:0.16;--o1:0.69;--ao:14.9s;--to:-5.6s"></i></i>
+<i style="left:15.1%;top:18.85%;--dx:113px;--ax:32.3s;--tx:-5.9s"><i style="width:2px;height:2px;background:var(--spark);--dy:-60px;--ay:18.8s;--ty:-29.4s;--o0:0.27;--o1:0.59;--ao:6.2s;--to:-7.2s"></i></i>
+<i style="left:79.64%;top:29.88%;--dx:-82px;--ax:21.7s;--tx:-10.7s"><i style="width:2px;height:2px;background:var(--accent);--dy:68px;--ay:16.5s;--ty:-5.5s;--o0:0.25;--o1:0.55;--ao:10.9s;--to:-12.3s"></i></i>
+<i style="left:46.91%;top:24.57%;--dx:-73px;--ax:21.6s;--tx:-30.3s"><i style="width:2px;height:2px;background:var(--spark);--dy:-55px;--ay:15.6s;--ty:-31.2s;--o0:0.25;--o1:0.6;--ao:13.1s;--to:-0.9s"></i></i>
+<i style="left:92.27%;top:89.0%;--dx:99px;--ax:20.3s;--tx:-12.2s"><i style="width:2px;height:2px;background:var(--spark);--dy:69px;--ay:16.0s;--ty:-8.3s;--o0:0.26;--o1:0.52;--ao:11.7s;--to:-14.9s"></i></i>
+<i style="left:25.18%;top:52.53%;--dx:-51px;--ax:18.7s;--tx:-27.2s"><i style="width:2px;height:2px;background:var(--accent);--dy:-83px;--ay:18.1s;--ty:-3.1s;--o0:0.21;--o1:0.6;--ao:14.6s;--to:-8.8s"></i></i>
+<i style="left:85.45%;top:28.97%;--dx:-108px;--ax:26.2s;--tx:-15.7s"><i style="width:3px;height:3px;background:var(--spark);--dy:-80px;--ay:13.7s;--ty:-15.8s;--o0:0.27;--o1:0.65;--ao:8.8s;--to:-6.1s"></i></i>
+<i style="left:54.75%;top:99.72%;--dx:40px;--ax:25.3s;--tx:-36.7s"><i style="width:2px;height:2px;background:var(--spark);--dy:-35px;--ay:21.8s;--ty:-26.6s;--o0:0.23;--o1:0.38;--ao:9.4s;--to:-10.7s"></i></i>
+<i style="left:22.22%;top:55.54%;--dx:-107px;--ax:24.9s;--tx:-11.3s"><i style="width:2px;height:2px;background:var(--spark);--dy:-47px;--ay:23.3s;--ty:-10.8s;--o0:0.19;--o1:0.57;--ao:8.3s;--to:-3.0s"></i></i>
+<i style="left:72.61%;top:31.6%;--dx:93px;--ax:25.0s;--tx:-23.6s"><i style="width:1px;height:1px;background:var(--spark);--dy:58px;--ay:14.9s;--ty:-4.2s;--o0:0.23;--o1:0.43;--ao:7.7s;--to:-0.5s"></i></i>
+<i style="left:45.24%;top:69.8%;--dx:-114px;--ax:18.5s;--tx:-16.2s"><i style="width:2px;height:2px;background:var(--accent);--dy:55px;--ay:30.5s;--ty:-16.4s;--o0:0.23;--o1:0.7;--ao:13.4s;--to:-5.8s"></i></i>
+<i style="left:31.8%;top:40.04%;--dx:114px;--ax:29.8s;--tx:-12.6s"><i style="width:3px;height:3px;background:var(--accent);--dy:-72px;--ay:13.4s;--ty:-11.0s;--o0:0.23;--o1:0.49;--ao:9.4s;--to:-7.6s"></i></i>
+<i style="left:78.43%;top:82.17%;--dx:96px;--ax:24.4s;--tx:-5.4s"><i style="width:2px;height:2px;background:var(--spark);--dy:65px;--ay:22.5s;--ty:-22.8s;--o0:0.28;--o1:0.52;--ao:12.4s;--to:-12.5s"></i></i>
+<i style="left:18.11%;top:94.38%;--dx:-45px;--ax:31.6s;--tx:-35.3s"><i style="width:2px;height:2px;background:var(--spark);--dy:67px;--ay:19.3s;--ty:-11.6s;--o0:0.2;--o1:0.41;--ao:14.8s;--to:-2.0s"></i></i>
+<i style="left:90.21%;top:53.43%;--dx:48px;--ax:19.6s;--tx:-11.0s"><i style="width:1px;height:1px;background:var(--spark);--dy:68px;--ay:28.7s;--ty:-28.7s;--o0:0.17;--o1:0.54;--ao:13.5s;--to:-2.8s"></i></i>
+<i style="left:53.88%;top:5.78%;--dx:-59px;--ax:30.4s;--tx:-6.0s"><i style="width:2px;height:2px;background:var(--accent);--dy:69px;--ay:27.5s;--ty:-13.2s;--o0:0.14;--o1:0.62;--ao:7.1s;--to:-6.1s"></i></i>
+<i style="left:32.3%;top:11.41%;--dx:-86px;--ax:33.5s;--tx:-18.9s"><i style="width:2px;height:2px;background:var(--spark);--dy:-76px;--ay:20.7s;--ty:-3.3s;--o0:0.19;--o1:0.63;--ao:14.2s;--to:-8.5s"></i></i>
+<i style="left:39.51%;top:26.72%;--dx:101px;--ax:36.0s;--tx:-20.0s"><i style="width:3px;height:3px;background:var(--spark);--dy:-66px;--ay:23.0s;--ty:-13.8s;--o0:0.27;--o1:0.47;--ao:6.5s;--to:-10.9s"></i></i>
+<i style="left:89.81%;top:72.66%;--dx:-54px;--ax:35.3s;--tx:-18.1s"><i style="width:2px;height:2px;background:var(--spark);--dy:44px;--ay:31.5s;--ty:-3.4s;--o0:0.27;--o1:0.53;--ao:11.9s;--to:-14.1s"></i></i>
+<i style="left:87.73%;top:99.93%;--dx:80px;--ax:32.7s;--tx:-34.3s"><i style="width:2px;height:2px;background:var(--spark);--dy:-43px;--ay:23.8s;--ty:-3.2s;--o0:0.25;--o1:0.41;--ao:10.8s;--to:-14.3s"></i></i>
+<i style="left:-1.94%;top:22.88%;--dx:-39px;--ax:25.3s;--tx:-22.2s"><i style="width:2px;height:2px;background:var(--spark);--dy:83px;--ay:19.8s;--ty:-1.5s;--o0:0.14;--o1:0.63;--ao:8.8s;--to:-7.5s"></i></i>
+<i style="left:93.26%;top:97.68%;--dx:-58px;--ax:34.6s;--tx:-18.0s"><i style="width:2px;height:2px;background:var(--spark);--dy:-41px;--ay:19.7s;--ty:-5.5s;--o0:0.26;--o1:0.66;--ao:7.8s;--to:-9.5s"></i></i>
+<i style="left:17.53%;top:87.78%;--dx:93px;--ax:22.8s;--tx:-33.4s"><i style="width:2px;height:2px;background:var(--accent);--dy:92px;--ay:21.0s;--ty:-10.7s;--o0:0.27;--o1:0.71;--ao:9.7s;--to:-2.5s"></i></i>
+<i style="left:85.88%;top:10.31%;--dx:-92px;--ax:24.8s;--tx:-33.6s"><i style="width:2px;height:2px;background:var(--spark);--dy:81px;--ay:25.6s;--ty:-18.9s;--o0:0.17;--o1:0.46;--ao:14.3s;--to:-10.0s"></i></i>
+<i style="left:26.24%;top:63.27%;--dx:108px;--ax:18.0s;--tx:-10.8s"><i style="width:2px;height:2px;background:var(--accent);--dy:-64px;--ay:24.4s;--ty:-8.0s;--o0:0.25;--o1:0.48;--ao:8.6s;--to:-11.3s"></i></i>
+<i style="left:23.08%;top:26.47%;--dx:-114px;--ax:36.2s;--tx:-0.1s"><i style="width:2px;height:2px;background:var(--spark);--dy:-70px;--ay:24.1s;--ty:-28.5s;--o0:0.15;--o1:0.4;--ao:13.0s;--to:-13.6s"></i></i>
+<i style="left:30.72%;top:47.32%;--dx:-82px;--ax:26.1s;--tx:-20.8s"><i style="width:2px;height:2px;background:var(--accent);--dy:-36px;--ay:25.7s;--ty:-8.2s;--o0:0.24;--o1:0.69;--ao:8.3s;--to:-8.2s"></i></i>
+<i style="left:84.97%;top:59.54%;--dx:-80px;--ax:29.8s;--tx:-30.6s"><i style="width:2px;height:2px;background:var(--spark);--dy:-50px;--ay:24.6s;--ty:-16.1s;--o0:0.24;--o1:0.62;--ao:6.3s;--to:-1.7s"></i></i>
+<i style="left:16.18%;top:63.27%;--dx:-38px;--ax:23.6s;--tx:-20.0s"><i style="width:2px;height:2px;background:var(--spark);--dy:31px;--ay:24.8s;--ty:-8.5s;--o0:0.22;--o1:0.4;--ao:13.4s;--to:-2.6s"></i></i>
+<i style="left:23.99%;top:14.3%;--dx:39px;--ax:31.7s;--tx:-36.4s"><i style="width:1px;height:1px;background:var(--spark);--dy:59px;--ay:26.4s;--ty:-4.1s;--o0:0.25;--o1:0.55;--ao:7.2s;--to:-11.2s"></i></i>
+<i style="left:51.21%;top:98.54%;--dx:-41px;--ax:36.6s;--tx:-25.8s"><i style="width:3px;height:3px;background:var(--accent);--dy:60px;--ay:31.5s;--ty:-22.9s;--o0:0.28;--o1:0.65;--ao:8.7s;--to:-1.8s"></i></i>
+<i style="left:85.25%;top:40.67%;--dx:59px;--ax:25.5s;--tx:-2.2s"><i style="width:2px;height:2px;background:var(--accent);--dy:-31px;--ay:25.3s;--ty:-11.0s;--o0:0.24;--o1:0.74;--ao:11.3s;--to:-13.3s"></i></i>
+<i style="left:45.18%;top:38.08%;--dx:97px;--ax:22.2s;--tx:-30.6s"><i style="width:3px;height:3px;background:var(--spark);--dy:-56px;--ay:28.1s;--ty:-15.4s;--o0:0.2;--o1:0.55;--ao:12.8s;--to:-7.1s"></i></i>
+<i style="left:48.0%;top:61.92%;--dx:-78px;--ax:31.5s;--tx:-10.4s"><i style="width:3px;height:3px;background:var(--accent);--dy:33px;--ay:19.9s;--ty:-0.6s;--o0:0.17;--o1:0.54;--ao:9.5s;--to:-13.9s"></i></i>
+<i style="left:70.95%;top:25.4%;--dx:45px;--ax:36.0s;--tx:-12.2s"><i style="width:2px;height:2px;background:var(--spark);--dy:-76px;--ay:13.4s;--ty:-12.3s;--o0:0.15;--o1:0.63;--ao:8.9s;--to:-11.6s"></i></i>
+<i style="left:50.97%;top:3.6%;--dx:37px;--ax:19.7s;--tx:-15.6s"><i style="width:2px;height:2px;background:var(--spark);--dy:-62px;--ay:17.0s;--ty:-15.3s;--o0:0.24;--o1:0.52;--ao:10.9s;--to:-4.7s"></i></i>
+<i style="left:44.07%;top:36.45%;--dx:67px;--ax:24.5s;--tx:-14.1s"><i style="width:2px;height:2px;background:var(--spark);--dy:63px;--ay:15.0s;--ty:-19.6s;--o0:0.16;--o1:0.62;--ao:12.7s;--to:-7.2s"></i></i>
+<i style="left:-0.84%;top:75.69%;--dx:-79px;--ax:37.1s;--tx:-8.9s"><i style="width:2px;height:2px;background:var(--spark);--dy:73px;--ay:29.5s;--ty:-20.2s;--o0:0.15;--o1:0.5;--ao:9.5s;--to:-0.9s"></i></i>
+<i style="left:37.1%;top:31.47%;--dx:-47px;--ax:33.1s;--tx:-27.1s"><i style="width:2px;height:2px;background:var(--spark);--dy:42px;--ay:19.7s;--ty:-16.7s;--o0:0.24;--o1:0.63;--ao:13.2s;--to:-7.2s"></i></i>
+<i style="left:24.21%;top:85.0%;--dx:44px;--ax:22.7s;--tx:-32.2s"><i style="width:2px;height:2px;background:var(--spark);--dy:-89px;--ay:20.2s;--ty:-9.6s;--o0:0.24;--o1:0.63;--ao:6.7s;--to:-0.5s"></i></i>
+<i style="left:31.0%;top:36.07%;--dx:65px;--ax:24.6s;--tx:-35.8s"><i style="width:2px;height:2px;background:var(--spark);--dy:92px;--ay:23.9s;--ty:-24.7s;--o0:0.23;--o1:0.55;--ao:9.7s;--to:-6.2s"></i></i>
+<i style="left:26.17%;top:82.62%;--dx:37px;--ax:22.7s;--tx:-18.0s"><i style="width:3px;height:3px;background:var(--spark);--dy:-74px;--ay:22.4s;--ty:-0.7s;--o0:0.22;--o1:0.46;--ao:8.3s;--to:-3.3s"></i></i>
+<i style="left:51.1%;top:92.5%;--dx:-78px;--ax:28.8s;--tx:-36.8s"><i style="width:2px;height:2px;background:var(--spark);--dy:-70px;--ay:28.8s;--ty:-10.7s;--o0:0.19;--o1:0.63;--ao:8.8s;--to:-10.7s"></i></i>
+<i style="left:68.93%;top:68.03%;--dx:-61px;--ax:23.2s;--tx:-13.9s"><i style="width:2px;height:2px;background:var(--spark);--dy:82px;--ay:20.9s;--ty:-21.4s;--o0:0.21;--o1:0.56;--ao:9.3s;--to:-10.6s"></i></i>
+<i style="left:91.58%;top:73.23%;--dx:-106px;--ax:26.5s;--tx:-18.3s"><i style="width:2px;height:2px;background:var(--spark);--dy:36px;--ay:27.7s;--ty:-5.2s;--o0:0.26;--o1:0.62;--ao:6.5s;--to:-3.8s"></i></i>
+<i style="left:49.76%;top:79.24%;--dx:92px;--ax:35.0s;--tx:-21.4s"><i style="width:2px;height:2px;background:var(--spark);--dy:40px;--ay:16.9s;--ty:-4.1s;--o0:0.28;--o1:0.56;--ao:7.1s;--to:-11.1s"></i></i>
+<i style="left:25.43%;top:14.4%;--dx:53px;--ax:26.9s;--tx:-30.0s"><i style="width:1px;height:1px;background:var(--accent);--dy:-93px;--ay:26.2s;--ty:-29.7s;--o0:0.18;--o1:0.54;--ao:8.3s;--to:-10.0s"></i></i>
+<i style="left:37.44%;top:67.29%;--dx:-105px;--ax:32.4s;--tx:-4.6s"><i style="width:2px;height:2px;background:var(--accent);--dy:-47px;--ay:31.9s;--ty:-10.6s;--o0:0.14;--o1:0.63;--ao:10.3s;--to:-5.6s"></i></i>
+<i style="left:29.54%;top:79.65%;--dx:-66px;--ax:37.6s;--tx:-26.4s"><i style="width:2px;height:2px;background:var(--spark);--dy:79px;--ay:20.4s;--ty:-17.5s;--o0:0.25;--o1:0.42;--ao:7.6s;--to:-1.6s"></i></i>
+<i style="left:93.22%;top:23.64%;--dx:-60px;--ax:28.9s;--tx:-15.2s"><i style="width:2px;height:2px;background:var(--spark);--dy:-46px;--ay:18.2s;--ty:-10.3s;--o0:0.15;--o1:0.44;--ao:11.0s;--to:-8.4s"></i></i>
+<i style="left:13.46%;top:-1.27%;--dx:-49px;--ax:33.6s;--tx:-15.5s"><i style="width:2px;height:2px;background:var(--spark);--dy:37px;--ay:31.8s;--ty:-1.0s;--o0:0.19;--o1:0.54;--ao:11.0s;--to:-3.2s"></i></i>
+<i style="left:60.9%;top:82.37%;--dx:104px;--ax:36.8s;--tx:-32.6s"><i style="width:2px;height:2px;background:var(--spark);--dy:66px;--ay:13.9s;--ty:-30.2s;--o0:0.22;--o1:0.57;--ao:8.4s;--to:-0.4s"></i></i>
+<i style="left:54.68%;top:4.42%;--dx:-112px;--ax:22.6s;--tx:-35.1s"><i style="width:2px;height:2px;background:var(--spark);--dy:-79px;--ay:17.7s;--ty:-15.8s;--o0:0.18;--o1:0.53;--ao:12.0s;--to:-12.0s"></i></i>
+<i style="left:76.33%;top:93.49%;--dx:107px;--ax:20.0s;--tx:-27.5s"><i style="width:3px;height:3px;background:var(--spark);--dy:-29px;--ay:19.1s;--ty:-16.2s;--o0:0.18;--o1:0.66;--ao:11.6s;--to:-6.7s"></i></i>
+<i style="left:29.84%;top:4.8%;--dx:-55px;--ax:21.4s;--tx:-20.8s"><i style="width:1px;height:1px;background:var(--spark);--dy:-78px;--ay:27.1s;--ty:-21.8s;--o0:0.16;--o1:0.41;--ao:7.3s;--to:-5.3s"></i></i>
+<i style="left:41.94%;top:-1.04%;--dx:-60px;--ax:20.7s;--tx:-22.4s"><i style="width:3px;height:3px;background:var(--spark);--dy:-29px;--ay:14.3s;--ty:-18.5s;--o0:0.19;--o1:0.51;--ao:14.4s;--to:-7.5s"></i></i>
+<i style="left:77.6%;top:88.55%;--dx:111px;--ax:33.3s;--tx:-0.4s"><i style="width:2px;height:2px;background:var(--spark);--dy:87px;--ay:23.0s;--ty:-23.4s;--o0:0.23;--o1:0.64;--ao:6.5s;--to:-9.2s"></i></i>
+<i style="left:33.15%;top:42.83%;--dx:-44px;--ax:26.8s;--tx:-19.1s"><i style="width:3px;height:3px;background:var(--spark);--dy:57px;--ay:28.9s;--ty:-12.0s;--o0:0.22;--o1:0.39;--ao:14.3s;--to:-7.9s"></i></i>
+<i style="left:44.07%;top:26.99%;--dx:46px;--ax:22.4s;--tx:-7.2s"><i style="width:2px;height:2px;background:var(--accent);--dy:50px;--ay:24.8s;--ty:-15.0s;--o0:0.22;--o1:0.47;--ao:14.7s;--to:-11.3s"></i></i>
+<i style="left:89.53%;top:9.33%;--dx:-99px;--ax:18.4s;--tx:-27.0s"><i style="width:2px;height:2px;background:var(--accent);--dy:95px;--ay:29.5s;--ty:-8.0s;--o0:0.25;--o1:0.6;--ao:10.8s;--to:-13.0s"></i></i>
+<i style="left:17.99%;top:26.52%;--dx:-79px;--ax:18.5s;--tx:-2.1s"><i style="width:2px;height:2px;background:var(--spark);--dy:87px;--ay:22.4s;--ty:-27.8s;--o0:0.28;--o1:0.4;--ao:14.5s;--to:-12.2s"></i></i>
+<i style="left:16.21%;top:32.04%;--dx:44px;--ax:17.7s;--tx:-17.7s"><i style="width:2px;height:2px;background:var(--spark);--dy:-69px;--ay:26.0s;--ty:-15.7s;--o0:0.15;--o1:0.56;--ao:10.8s;--to:-4.7s"></i></i>
+<i style="left:95.62%;top:96.96%;--dx:35px;--ax:34.7s;--tx:-25.0s"><i style="width:3px;height:3px;background:var(--spark);--dy:75px;--ay:31.0s;--ty:-6.7s;--o0:0.17;--o1:0.59;--ao:7.5s;--to:-8.7s"></i></i>
+<i style="left:2.22%;top:26.38%;--dx:59px;--ax:31.5s;--tx:-13.7s"><i style="width:2px;height:2px;background:var(--spark);--dy:-95px;--ay:27.0s;--ty:-9.9s;--o0:0.2;--o1:0.42;--ao:11.7s;--to:-6.4s"></i></i>
+<i style="left:81.66%;top:39.72%;--dx:-110px;--ax:25.8s;--tx:-4.5s"><i style="width:1px;height:1px;background:var(--spark);--dy:62px;--ay:22.4s;--ty:-3.9s;--o0:0.26;--o1:0.65;--ao:6.7s;--to:-9.7s"></i></i>
+<i style="left:21.01%;top:46.7%;--dx:-70px;--ax:24.0s;--tx:-25.0s"><i style="width:3px;height:3px;background:var(--accent);--dy:-53px;--ay:24.1s;--ty:-8.6s;--o0:0.23;--o1:0.45;--ao:11.5s;--to:-0.2s"></i></i>
 </div>
 
 <main>
