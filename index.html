@@ -6,17 +6,20 @@
 <title>Abhiraj Tiwari</title>
 <meta name="description" content="Abhiraj Tiwari — electrical engineering at Georgia Tech. Firmware, silicon, and machine learning.">
 <meta name="color-scheme" content="dark">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='4' fill='%23f5f5f5'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='4' fill='%23a6a0ff'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:    #0a0a0b;
-    --fg:    #f4f4f5;
-    --body:  #9a9aa2;
-    --muted: #6b6b74;
-    --dim:   #42424a;
+    --bg:     #08080c;
+    --fg:     #ececf2;
+    --body:   #a3a1b2;
+    --muted:  #6b6980;
+    --dim:    #403e52;
+
+    --accent:     #b6b0ff;
+    --accent-dim: #8b85e0;
 
     --sans: "Space Grotesk", ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
     --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -28,101 +31,143 @@
 
   body {
     margin: 0;
+    min-height: 100%;
     background: var(--bg);
     color: var(--body);
     font-family: var(--sans);
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 15.5px;
+    line-height: 1.62;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
-  .wrap {
-    max-width: 56rem;
+  /* ---------- ambient background ---------- */
+
+  .grid,
+  .glow,
+  .vignette {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* fine dot lattice, drifting one tile at a time so the loop is seamless */
+  .grid {
+    inset: -40px;
+    background-image: radial-gradient(circle, rgba(166,160,255,.17) 1px, transparent 1px);
+    background-size: 38px 38px;
+    animation: drift 44s linear infinite;
+  }
+
+  @keyframes drift {
+    to { transform: translate(38px, 38px); }
+  }
+
+  /* two slow-breathing pools of color */
+  .glow {
+    inset: 0;
+    background:
+      radial-gradient(42rem 32rem at 18% 12%, rgba(124,112,235,.16), transparent 68%),
+      radial-gradient(38rem 30rem at 84% 78%, rgba(72,150,190,.11), transparent 70%);
+    animation: breathe 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes breathe {
+    from { opacity: .62; transform: scale(1); }
+    to   { opacity: 1;   transform: scale(1.14); }
+  }
+
+  .vignette {
+    inset: 0;
+    background: radial-gradient(120% 90% at 50% 45%, transparent 42%, rgba(8,8,12,.85) 100%);
+  }
+
+  /* ---------- content ---------- */
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 43rem;
     margin: 0 auto;
-    padding: clamp(4rem, 14vh, 8rem) 2rem 6rem;
-    display: grid;
-    grid-template-columns: 14rem 1fr;
-    gap: 4.5rem;
-    align-items: start;
+    padding: clamp(4.5rem, 15vh, 9rem) 1.75rem 6rem;
   }
-
-  /* ---------- left column ---------- */
-
-  aside { position: sticky; top: clamp(4rem, 14vh, 8rem); }
 
   h1 {
-    margin: 0 0 1.125rem;
-    font-size: 1.75rem;
-    font-weight: 500;
-    line-height: 1.08;
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.75rem, 4.5vw, 2.125rem);
+    font-weight: 600;
+    line-height: 1.1;
     letter-spacing: -0.03em;
     color: var(--fg);
   }
 
-  .bio {
+  .lead {
     margin: 0;
-    font-size: 0.9375rem;
+    font-size: 1.0625rem;
     line-height: 1.55;
     color: var(--fg);
   }
 
-  .bio span { color: var(--muted); }
+  .lead span { color: var(--muted); }
 
-  nav {
-    margin-top: 1.75rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.02em;
-  }
+  a { color: var(--accent); text-decoration: none; }
 
-  nav a {
-    color: var(--muted);
-    text-decoration: none;
-    transition: color .15s ease;
-  }
+  a:hover,
+  a:focus-visible { color: var(--fg); }
 
-  nav a:hover,
-  nav a:focus-visible { color: var(--fg); }
-
-  /* ---------- right column ---------- */
+  /* ---------- list ---------- */
 
   ol {
-    margin: 0;
+    margin: 2.5rem 0 0;
     padding: 0;
     list-style: none;
   }
 
   li {
     position: relative;
-    padding-left: 2.5rem;
+    padding-left: 2.625rem;
   }
 
-  li + li { margin-top: 1.5rem; }
+  li + li { margin-top: 1.375rem; }
 
   .num {
     position: absolute;
     left: 0;
-    top: 0.15em;
+    top: 0.2em;
     font-family: var(--mono);
     font-size: 0.6875rem;
-    font-weight: 400;
     color: var(--dim);
     font-variant-numeric: tabular-nums;
   }
 
   b {
     font-weight: 500;
-    color: var(--fg);
+    color: var(--accent);
     letter-spacing: -0.005em;
   }
 
   em { font-style: italic; }
 
+  /* ---------- footer ---------- */
+
+  footer {
+    margin-top: 3.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.01em;
+  }
+
+  footer nav { display: flex; gap: 1.25rem; }
+
+  footer a { color: var(--accent-dim); }
+
   :focus-visible {
-    outline: 1px solid var(--muted);
+    outline: 1px solid var(--accent-dim);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -134,44 +179,35 @@
     to   { opacity: 1; transform: none; }
   }
 
-  aside, ol > li { animation: rise .5s cubic-bezier(.2,.6,.3,1) backwards; }
-  ol > li:nth-child(1) { animation-delay: .08s; }
-  ol > li:nth-child(2) { animation-delay: .13s; }
-  ol > li:nth-child(3) { animation-delay: .18s; }
-  ol > li:nth-child(4) { animation-delay: .23s; }
-  ol > li:nth-child(5) { animation-delay: .28s; }
-  ol > li:nth-child(6) { animation-delay: .33s; }
-  ol > li:nth-child(7) { animation-delay: .38s; }
+  main > *, ol > li { animation: rise .55s cubic-bezier(.2,.6,.3,1) backwards; }
+  .lead { animation-delay: .06s; }
+  ol > li:nth-child(1) { animation-delay: .14s; }
+  ol > li:nth-child(2) { animation-delay: .19s; }
+  ol > li:nth-child(3) { animation-delay: .24s; }
+  ol > li:nth-child(4) { animation-delay: .29s; }
+  ol > li:nth-child(5) { animation-delay: .34s; }
+  ol > li:nth-child(6) { animation-delay: .39s; }
+  ol > li:nth-child(7) { animation-delay: .44s; }
+  footer { animation-delay: .5s; }
 
   @media (prefers-reduced-motion: reduce) {
-    aside, ol > li { animation: none; }
+    .grid, .glow, main > *, ol > li { animation: none; }
   }
 
-  /* ---------- small screens ---------- */
-
-  @media (max-width: 46rem) {
-    .wrap {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-      max-width: 34rem;
-      padding: clamp(3.5rem, 10vh, 6rem) 1.5rem 5rem;
-    }
-    aside { position: static; }
-    li { padding-left: 2.25rem; }
+  @media (max-width: 30rem) {
+    li { padding-left: 2.125rem; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <aside>
-    <h1>Abhiraj<br>Tiwari</h1>
-    <p class="bio">Studying electrical engineering at Georgia Tech. <span>Graduated from TJHSST, the most talent-dense school ever.</span></p>
-    <nav>
-      <a href="https://x.com/abhirajtiwari">X</a>
-      <a href="https://linkedin.com/in/tiwariabhiraj">LinkedIn</a>
-      <a href="mailto:atiwari325@gatech.edu">Email</a>
-    </nav>
-  </aside>
+<div class="grid"></div>
+<div class="glow"></div>
+<div class="vignette"></div>
+
+<main>
+  <h1>Abhiraj Tiwari</h1>
+
+  <p class="lead">Studying electrical engineering at Georgia Tech. <span>Graduated from TJHSST, the most talent-dense school ever.</span></p>
 
   <ol>
     <li><span class="num">01</span><b>HyTech Racing:</b> Working on the firmware team for Georgia Tech's Formula SAE electric race car.</li>
@@ -188,6 +224,14 @@
 
     <li><span class="num">07</span><b>RISC-V CPU:</b> Built an RV32I-subset CPU in SystemVerilog and took it through synthesis and place-and-route on Sky130.</li>
   </ol>
-</div>
+
+  <footer>
+    <a href="mailto:atiwari325@gatech.edu">atiwari325@gatech.edu</a>
+    <nav>
+      <a href="https://x.com/abhirajtiwari">x</a>
+      <a href="https://linkedin.com/in/tiwariabhiraj">linkedin</a>
+    </nav>
+  </footer>
+</main>
 </body>
 </html>
