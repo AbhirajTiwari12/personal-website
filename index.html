@@ -6,20 +6,21 @@
 <title>Abhiraj Tiwari</title>
 <meta name="description" content="Abhiraj Tiwari — electrical engineering at Georgia Tech. Firmware, silicon, and machine learning.">
 <meta name="color-scheme" content="dark">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='4' fill='%23a6a0ff'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='4' fill='%23ff6b4a'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:     #08080c;
-    --fg:     #ececf2;
-    --body:   #a3a1b2;
-    --muted:  #6b6980;
-    --dim:    #403e52;
+    --bg:     #0c0908;
+    --fg:     #f3efed;
+    --body:   #a8a19d;
+    --muted:  #78716c;
+    --dim:    #4b4440;
+    --spark:  #fff6f2;
 
-    --accent:     #b6b0ff;
-    --accent-dim: #8b85e0;
+    --accent:     #ff6b4a;
+    --accent-dim: #c9573c;
 
     --sans: "Space Grotesk", ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
     --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -31,7 +32,6 @@
 
   body {
     margin: 0;
-    min-height: 100%;
     background: var(--bg);
     color: var(--body);
     font-family: var(--sans);
@@ -41,45 +41,26 @@
     overflow-x: hidden;
   }
 
-  /* ---------- ambient background ---------- */
+  /* ---------- ambient field ---------- */
+  /* Fixed specks that fade up and down out of sync. Nothing travels. */
 
-  .grid,
-  .glow,
-  .vignette {
+  .field {
     position: fixed;
-    pointer-events: none;
+    inset: 0;
     z-index: 0;
+    pointer-events: none;
   }
 
-  /* fine dot lattice, drifting one tile at a time so the loop is seamless */
-  .grid {
-    inset: -40px;
-    background-image: radial-gradient(circle, rgba(166,160,255,.17) 1px, transparent 1px);
-    background-size: 38px 38px;
-    animation: drift 44s linear infinite;
+  .field i {
+    position: absolute;
+    border-radius: 50%;
+    opacity: var(--o0);
+    animation: twinkle var(--d) ease-in-out var(--t) infinite;
   }
 
-  @keyframes drift {
-    to { transform: translate(38px, 38px); }
-  }
-
-  /* two slow-breathing pools of color */
-  .glow {
-    inset: 0;
-    background:
-      radial-gradient(42rem 32rem at 18% 12%, rgba(124,112,235,.16), transparent 68%),
-      radial-gradient(38rem 30rem at 84% 78%, rgba(72,150,190,.11), transparent 70%);
-    animation: breathe 20s ease-in-out infinite alternate;
-  }
-
-  @keyframes breathe {
-    from { opacity: .62; transform: scale(1); }
-    to   { opacity: 1;   transform: scale(1.14); }
-  }
-
-  .vignette {
-    inset: 0;
-    background: radial-gradient(120% 90% at 50% 45%, transparent 42%, rgba(8,8,12,.85) 100%);
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--o0); }
+    50%      { opacity: var(--o1); }
   }
 
   /* ---------- content ---------- */
@@ -191,7 +172,7 @@
   footer { animation-delay: .5s; }
 
   @media (prefers-reduced-motion: reduce) {
-    .grid, .glow, main > *, ol > li { animation: none; }
+    .field i, main > *, ol > li { animation: none; }
   }
 
   @media (max-width: 30rem) {
@@ -200,9 +181,143 @@
 </style>
 </head>
 <body>
-<div class="grid"></div>
-<div class="glow"></div>
-<div class="vignette"></div>
+<div class="field">
+<i style="left:32.38%;top:15.08%;width:2px;height:2px;background:var(--spark);--o0:0.083;--o1:0.362;--d:5.5s;--t:6.6s"></i>
+<i style="left:3.75%;top:43.36%;width:2px;height:2px;background:var(--accent);--o0:0.074;--o1:0.621;--d:6.0s;--t:2.9s"></i>
+<i style="left:62.74%;top:94.77%;width:1px;height:1px;background:var(--spark);--o0:0.118;--o1:0.273;--d:11.9s;--t:3.8s"></i>
+<i style="left:14.43%;top:11.78%;width:1px;height:1px;background:var(--spark);--o0:0.054;--o1:0.423;--d:10.1s;--t:4.8s"></i>
+<i style="left:54.77%;top:6.28%;width:1px;height:1px;background:var(--accent);--o0:0.094;--o1:0.485;--d:7.5s;--t:7.6s"></i>
+<i style="left:45.32%;top:29.98%;width:1px;height:1px;background:var(--spark);--o0:0.06;--o1:0.421;--d:9.2s;--t:11.4s"></i>
+<i style="left:72.94%;top:28.79%;width:2px;height:2px;background:var(--spark);--o0:0.073;--o1:0.472;--d:6.2s;--t:6.4s"></i>
+<i style="left:3.92%;top:66.82%;width:1px;height:1px;background:var(--spark);--o0:0.11;--o1:0.348;--d:10.6s;--t:7.7s"></i>
+<i style="left:57.99%;top:45.62%;width:1px;height:1px;background:var(--spark);--o0:0.078;--o1:0.446;--d:5.5s;--t:9.1s"></i>
+<i style="left:64.71%;top:99.31%;width:1px;height:1px;background:var(--spark);--o0:0.071;--o1:0.447;--d:5.2s;--t:6.0s"></i>
+<i style="left:16.8%;top:11.71%;width:1px;height:1px;background:var(--accent);--o0:0.05;--o1:0.424;--d:8.1s;--t:11.3s"></i>
+<i style="left:8.06%;top:44.92%;width:1px;height:1px;background:var(--spark);--o0:0.106;--o1:0.502;--d:7.2s;--t:5.4s"></i>
+<i style="left:35.88%;top:88.42%;width:2px;height:2px;background:var(--spark);--o0:0.054;--o1:0.325;--d:6.9s;--t:6.3s"></i>
+<i style="left:58.91%;top:26.27%;width:1px;height:1px;background:var(--accent);--o0:0.07;--o1:0.533;--d:12.6s;--t:9.0s"></i>
+<i style="left:51.55%;top:61.76%;width:2px;height:2px;background:var(--spark);--o0:0.112;--o1:0.478;--d:12.0s;--t:10.4s"></i>
+<i style="left:39.24%;top:39.9%;width:1px;height:1px;background:var(--accent);--o0:0.045;--o1:0.363;--d:6.7s;--t:2.1s"></i>
+<i style="left:34.01%;top:5.26%;width:2px;height:2px;background:var(--accent);--o0:0.048;--o1:0.464;--d:5.2s;--t:11.4s"></i>
+<i style="left:61.41%;top:14.86%;width:1px;height:1px;background:var(--spark);--o0:0.069;--o1:0.294;--d:11.8s;--t:12.9s"></i>
+<i style="left:46.6%;top:48.38%;width:2px;height:2px;background:var(--accent);--o0:0.067;--o1:0.43;--d:11.6s;--t:2.1s"></i>
+<i style="left:2.31%;top:95.1%;width:2px;height:2px;background:var(--spark);--o0:0.083;--o1:0.268;--d:9.2s;--t:12.7s"></i>
+<i style="left:86.33%;top:69.62%;width:1px;height:1px;background:var(--spark);--o0:0.053;--o1:0.476;--d:9.3s;--t:10.1s"></i>
+<i style="left:32.97%;top:22.3%;width:1px;height:1px;background:var(--spark);--o0:0.108;--o1:0.486;--d:11.5s;--t:9.6s"></i>
+<i style="left:22.67%;top:51.76%;width:2px;height:2px;background:var(--spark);--o0:0.042;--o1:0.338;--d:7.1s;--t:9.0s"></i>
+<i style="left:95.65%;top:44.72%;width:1px;height:1px;background:var(--spark);--o0:0.116;--o1:0.362;--d:6.8s;--t:2.9s"></i>
+<i style="left:19.67%;top:20.44%;width:1px;height:1px;background:var(--spark);--o0:0.107;--o1:0.394;--d:10.2s;--t:10.4s"></i>
+<i style="left:8.48%;top:66.06%;width:1px;height:1px;background:var(--spark);--o0:0.1;--o1:0.394;--d:6.4s;--t:10.3s"></i>
+<i style="left:33.25%;top:80.08%;width:1px;height:1px;background:var(--spark);--o0:0.072;--o1:0.525;--d:10.8s;--t:2.2s"></i>
+<i style="left:12.7%;top:15.12%;width:1px;height:1px;background:var(--spark);--o0:0.052;--o1:0.491;--d:12.8s;--t:8.5s"></i>
+<i style="left:35.04%;top:54.87%;width:2px;height:2px;background:var(--accent);--o0:0.118;--o1:0.561;--d:9.2s;--t:12.1s"></i>
+<i style="left:43.38%;top:87.17%;width:1px;height:1px;background:var(--spark);--o0:0.06;--o1:0.342;--d:6.9s;--t:7.6s"></i>
+<i style="left:25.94%;top:41.9%;width:1px;height:1px;background:var(--accent);--o0:0.068;--o1:0.496;--d:9.7s;--t:11.8s"></i>
+<i style="left:42.06%;top:91.77%;width:1px;height:1px;background:var(--spark);--o0:0.082;--o1:0.265;--d:8.5s;--t:2.4s"></i>
+<i style="left:0.39%;top:79.92%;width:1px;height:1px;background:var(--accent);--o0:0.098;--o1:0.529;--d:7.6s;--t:6.7s"></i>
+<i style="left:55.54%;top:78.43%;width:1px;height:1px;background:var(--accent);--o0:0.06;--o1:0.434;--d:11.2s;--t:6.6s"></i>
+<i style="left:56.17%;top:76.0%;width:1px;height:1px;background:var(--spark);--o0:0.089;--o1:0.402;--d:9.1s;--t:9.0s"></i>
+<i style="left:45.23%;top:53.33%;width:1px;height:1px;background:var(--spark);--o0:0.096;--o1:0.505;--d:12.5s;--t:3.4s"></i>
+<i style="left:55.95%;top:94.33%;width:2px;height:2px;background:var(--spark);--o0:0.05;--o1:0.384;--d:5.6s;--t:3.1s"></i>
+<i style="left:7.31%;top:66.95%;width:1px;height:1px;background:var(--spark);--o0:0.052;--o1:0.461;--d:10.3s;--t:1.9s"></i>
+<i style="left:88.28%;top:96.75%;width:1px;height:1px;background:var(--accent);--o0:0.072;--o1:0.506;--d:12.9s;--t:10.8s"></i>
+<i style="left:16.15%;top:43.15%;width:1px;height:1px;background:var(--spark);--o0:0.056;--o1:0.349;--d:10.8s;--t:0.3s"></i>
+<i style="left:55.41%;top:44.05%;width:1px;height:1px;background:var(--accent);--o0:0.09;--o1:0.514;--d:5.5s;--t:12.8s"></i>
+<i style="left:78.84%;top:97.17%;width:1px;height:1px;background:var(--accent);--o0:0.043;--o1:0.605;--d:7.2s;--t:1.7s"></i>
+<i style="left:42.23%;top:91.14%;width:1px;height:1px;background:var(--spark);--o0:0.052;--o1:0.517;--d:9.6s;--t:9.1s"></i>
+<i style="left:8.95%;top:5.75%;width:1px;height:1px;background:var(--spark);--o0:0.046;--o1:0.523;--d:10.1s;--t:10.4s"></i>
+<i style="left:8.37%;top:85.62%;width:1px;height:1px;background:var(--accent);--o0:0.076;--o1:0.455;--d:9.4s;--t:12.0s"></i>
+<i style="left:26.79%;top:12.92%;width:1px;height:1px;background:var(--spark);--o0:0.049;--o1:0.305;--d:5.4s;--t:2.6s"></i>
+<i style="left:31.2%;top:30.5%;width:1px;height:1px;background:var(--spark);--o0:0.08;--o1:0.31;--d:7.8s;--t:0.2s"></i>
+<i style="left:25.04%;top:1.53%;width:1px;height:1px;background:var(--spark);--o0:0.055;--o1:0.393;--d:12.5s;--t:1.4s"></i>
+<i style="left:81.89%;top:43.22%;width:1px;height:1px;background:var(--spark);--o0:0.071;--o1:0.402;--d:10.5s;--t:12.8s"></i>
+<i style="left:34.27%;top:83.23%;width:1px;height:1px;background:var(--spark);--o0:0.072;--o1:0.357;--d:5.4s;--t:1.7s"></i>
+<i style="left:7.07%;top:74.09%;width:2px;height:2px;background:var(--spark);--o0:0.047;--o1:0.496;--d:12.0s;--t:8.7s"></i>
+<i style="left:28.19%;top:24.22%;width:1px;height:1px;background:var(--spark);--o0:0.053;--o1:0.385;--d:7.1s;--t:12.5s"></i>
+<i style="left:97.26%;top:54.71%;width:1px;height:1px;background:var(--spark);--o0:0.065;--o1:0.36;--d:5.0s;--t:5.0s"></i>
+<i style="left:47.46%;top:50.28%;width:1px;height:1px;background:var(--accent);--o0:0.04;--o1:0.43;--d:5.7s;--t:5.2s"></i>
+<i style="left:4.17%;top:2.25%;width:1px;height:1px;background:var(--spark);--o0:0.087;--o1:0.408;--d:11.0s;--t:8.5s"></i>
+<i style="left:71.6%;top:87.91%;width:1px;height:1px;background:var(--spark);--o0:0.119;--o1:0.302;--d:10.8s;--t:8.4s"></i>
+<i style="left:4.38%;top:83.53%;width:1px;height:1px;background:var(--spark);--o0:0.099;--o1:0.487;--d:6.1s;--t:6.8s"></i>
+<i style="left:50.44%;top:83.49%;width:1px;height:1px;background:var(--spark);--o0:0.087;--o1:0.51;--d:10.5s;--t:9.0s"></i>
+<i style="left:22.99%;top:3.12%;width:1px;height:1px;background:var(--accent);--o0:0.048;--o1:0.624;--d:9.5s;--t:8.2s"></i>
+<i style="left:62.62%;top:68.07%;width:2px;height:2px;background:var(--spark);--o0:0.104;--o1:0.47;--d:9.0s;--t:7.0s"></i>
+<i style="left:65.93%;top:6.61%;width:1px;height:1px;background:var(--spark);--o0:0.046;--o1:0.334;--d:10.8s;--t:2.7s"></i>
+<i style="left:73.98%;top:97.57%;width:1px;height:1px;background:var(--spark);--o0:0.078;--o1:0.451;--d:11.1s;--t:8.0s"></i>
+<i style="left:64.28%;top:7.75%;width:1px;height:1px;background:var(--accent);--o0:0.099;--o1:0.444;--d:9.5s;--t:0.2s"></i>
+<i style="left:6.07%;top:26.88%;width:1px;height:1px;background:var(--spark);--o0:0.094;--o1:0.341;--d:9.1s;--t:6.0s"></i>
+<i style="left:46.63%;top:11.85%;width:1px;height:1px;background:var(--spark);--o0:0.118;--o1:0.522;--d:5.1s;--t:6.0s"></i>
+<i style="left:81.99%;top:96.81%;width:1px;height:1px;background:var(--spark);--o0:0.057;--o1:0.525;--d:6.7s;--t:7.6s"></i>
+<i style="left:14.17%;top:52.41%;width:2px;height:2px;background:var(--spark);--o0:0.106;--o1:0.402;--d:12.1s;--t:9.1s"></i>
+<i style="left:23.14%;top:89.77%;width:2px;height:2px;background:var(--spark);--o0:0.04;--o1:0.398;--d:8.6s;--t:3.9s"></i>
+<i style="left:14.07%;top:34.4%;width:1px;height:1px;background:var(--spark);--o0:0.04;--o1:0.47;--d:11.7s;--t:1.6s"></i>
+<i style="left:92.64%;top:71.3%;width:1px;height:1px;background:var(--spark);--o0:0.07;--o1:0.37;--d:13.0s;--t:7.7s"></i>
+<i style="left:36.07%;top:42.81%;width:2px;height:2px;background:var(--spark);--o0:0.048;--o1:0.494;--d:7.3s;--t:12.2s"></i>
+<i style="left:24.93%;top:26.57%;width:1px;height:1px;background:var(--spark);--o0:0.07;--o1:0.528;--d:12.1s;--t:10.6s"></i>
+<i style="left:63.09%;top:91.34%;width:1px;height:1px;background:var(--spark);--o0:0.098;--o1:0.274;--d:10.9s;--t:5.9s"></i>
+<i style="left:75.27%;top:64.45%;width:2px;height:2px;background:var(--spark);--o0:0.114;--o1:0.296;--d:8.8s;--t:4.5s"></i>
+<i style="left:29.78%;top:73.9%;width:1px;height:1px;background:var(--spark);--o0:0.092;--o1:0.344;--d:9.5s;--t:5.1s"></i>
+<i style="left:16.73%;top:16.17%;width:1px;height:1px;background:var(--accent);--o0:0.08;--o1:0.415;--d:12.3s;--t:13.0s"></i>
+<i style="left:45.0%;top:13.96%;width:2px;height:2px;background:var(--accent);--o0:0.067;--o1:0.371;--d:6.9s;--t:3.4s"></i>
+<i style="left:56.96%;top:88.73%;width:1px;height:1px;background:var(--spark);--o0:0.073;--o1:0.407;--d:8.0s;--t:4.4s"></i>
+<i style="left:6.21%;top:27.75%;width:2px;height:2px;background:var(--spark);--o0:0.08;--o1:0.436;--d:11.9s;--t:2.8s"></i>
+<i style="left:27.1%;top:24.85%;width:1px;height:1px;background:var(--spark);--o0:0.116;--o1:0.498;--d:12.0s;--t:0.3s"></i>
+<i style="left:3.22%;top:70.95%;width:1px;height:1px;background:var(--spark);--o0:0.087;--o1:0.26;--d:8.1s;--t:12.0s"></i>
+<i style="left:82.56%;top:85.55%;width:1px;height:1px;background:var(--spark);--o0:0.049;--o1:0.303;--d:9.2s;--t:8.9s"></i>
+<i style="left:94.15%;top:72.17%;width:1px;height:1px;background:var(--spark);--o0:0.077;--o1:0.414;--d:5.3s;--t:10.2s"></i>
+<i style="left:23.26%;top:91.99%;width:1px;height:1px;background:var(--spark);--o0:0.05;--o1:0.331;--d:10.1s;--t:9.1s"></i>
+<i style="left:11.21%;top:7.04%;width:1px;height:1px;background:var(--spark);--o0:0.071;--o1:0.323;--d:9.8s;--t:0.1s"></i>
+<i style="left:30.15%;top:46.07%;width:1px;height:1px;background:var(--spark);--o0:0.111;--o1:0.393;--d:6.9s;--t:3.2s"></i>
+<i style="left:96.06%;top:70.47%;width:2px;height:2px;background:var(--spark);--o0:0.08;--o1:0.449;--d:8.4s;--t:3.3s"></i>
+<i style="left:66.74%;top:92.52%;width:2px;height:2px;background:var(--spark);--o0:0.067;--o1:0.378;--d:10.5s;--t:2.6s"></i>
+<i style="left:79.71%;top:73.91%;width:1px;height:1px;background:var(--spark);--o0:0.118;--o1:0.347;--d:11.6s;--t:3.0s"></i>
+<i style="left:22.14%;top:76.05%;width:1px;height:1px;background:var(--spark);--o0:0.08;--o1:0.312;--d:6.8s;--t:5.4s"></i>
+<i style="left:66.53%;top:94.88%;width:1px;height:1px;background:var(--accent);--o0:0.057;--o1:0.671;--d:6.1s;--t:0.7s"></i>
+<i style="left:6.01%;top:39.33%;width:1px;height:1px;background:var(--spark);--o0:0.099;--o1:0.539;--d:12.5s;--t:4.3s"></i>
+<i style="left:18.55%;top:93.59%;width:2px;height:2px;background:var(--spark);--o0:0.093;--o1:0.366;--d:8.0s;--t:4.3s"></i>
+<i style="left:16.93%;top:0.29%;width:1px;height:1px;background:var(--spark);--o0:0.116;--o1:0.295;--d:12.7s;--t:2.7s"></i>
+<i style="left:35.66%;top:82.16%;width:1px;height:1px;background:var(--spark);--o0:0.044;--o1:0.393;--d:8.0s;--t:12.0s"></i>
+<i style="left:19.3%;top:36.42%;width:2px;height:2px;background:var(--spark);--o0:0.073;--o1:0.487;--d:11.1s;--t:0.5s"></i>
+<i style="left:3.49%;top:6.26%;width:1px;height:1px;background:var(--spark);--o0:0.1;--o1:0.512;--d:7.7s;--t:3.5s"></i>
+<i style="left:95.77%;top:61.7%;width:1px;height:1px;background:var(--spark);--o0:0.065;--o1:0.337;--d:5.0s;--t:9.8s"></i>
+<i style="left:91.65%;top:63.4%;width:2px;height:2px;background:var(--spark);--o0:0.059;--o1:0.393;--d:12.7s;--t:12.4s"></i>
+<i style="left:38.65%;top:25.1%;width:1px;height:1px;background:var(--spark);--o0:0.114;--o1:0.311;--d:11.4s;--t:9.6s"></i>
+<i style="left:82.28%;top:77.28%;width:1px;height:1px;background:var(--spark);--o0:0.066;--o1:0.361;--d:11.3s;--t:1.0s"></i>
+<i style="left:19.73%;top:75.29%;width:2px;height:2px;background:var(--spark);--o0:0.043;--o1:0.415;--d:7.6s;--t:12.7s"></i>
+<i style="left:88.35%;top:98.78%;width:2px;height:2px;background:var(--spark);--o0:0.048;--o1:0.4;--d:10.7s;--t:5.8s"></i>
+<i style="left:23.42%;top:41.68%;width:1px;height:1px;background:var(--spark);--o0:0.1;--o1:0.497;--d:10.3s;--t:1.6s"></i>
+<i style="left:84.09%;top:29.38%;width:1px;height:1px;background:var(--spark);--o0:0.099;--o1:0.316;--d:7.0s;--t:3.2s"></i>
+<i style="left:15.33%;top:88.42%;width:1px;height:1px;background:var(--spark);--o0:0.072;--o1:0.538;--d:9.1s;--t:3.0s"></i>
+<i style="left:80.84%;top:65.33%;width:2px;height:2px;background:var(--spark);--o0:0.078;--o1:0.489;--d:11.7s;--t:11.9s"></i>
+<i style="left:4.04%;top:29.37%;width:1px;height:1px;background:var(--accent);--o0:0.118;--o1:0.538;--d:12.4s;--t:4.8s"></i>
+<i style="left:86.61%;top:44.91%;width:1px;height:1px;background:var(--spark);--o0:0.116;--o1:0.29;--d:9.8s;--t:8.1s"></i>
+<i style="left:21.76%;top:36.87%;width:1px;height:1px;background:var(--accent);--o0:0.06;--o1:0.544;--d:10.2s;--t:2.6s"></i>
+<i style="left:1.14%;top:32.72%;width:1px;height:1px;background:var(--spark);--o0:0.065;--o1:0.317;--d:11.4s;--t:7.1s"></i>
+<i style="left:6.33%;top:10.14%;width:1px;height:1px;background:var(--spark);--o0:0.091;--o1:0.286;--d:6.3s;--t:9.0s"></i>
+<i style="left:40.98%;top:28.33%;width:1px;height:1px;background:var(--spark);--o0:0.065;--o1:0.419;--d:7.9s;--t:5.4s"></i>
+<i style="left:86.42%;top:99.66%;width:1px;height:1px;background:var(--spark);--o0:0.098;--o1:0.317;--d:5.0s;--t:11.7s"></i>
+<i style="left:42.38%;top:82.04%;width:1px;height:1px;background:var(--spark);--o0:0.077;--o1:0.306;--d:5.1s;--t:7.2s"></i>
+<i style="left:64.07%;top:90.98%;width:1px;height:1px;background:var(--accent);--o0:0.07;--o1:0.512;--d:6.2s;--t:3.7s"></i>
+<i style="left:52.12%;top:92.55%;width:1px;height:1px;background:var(--accent);--o0:0.104;--o1:0.669;--d:6.6s;--t:1.6s"></i>
+<i style="left:94.31%;top:97.55%;width:2px;height:2px;background:var(--spark);--o0:0.114;--o1:0.369;--d:12.2s;--t:8.1s"></i>
+<i style="left:82.46%;top:16.03%;width:1px;height:1px;background:var(--spark);--o0:0.072;--o1:0.497;--d:11.6s;--t:2.4s"></i>
+<i style="left:21.81%;top:39.97%;width:1px;height:1px;background:var(--spark);--o0:0.05;--o1:0.329;--d:10.8s;--t:11.7s"></i>
+<i style="left:4.11%;top:56.23%;width:2px;height:2px;background:var(--spark);--o0:0.107;--o1:0.293;--d:9.8s;--t:7.2s"></i>
+<i style="left:62.7%;top:30.62%;width:1px;height:1px;background:var(--spark);--o0:0.074;--o1:0.444;--d:8.6s;--t:5.7s"></i>
+<i style="left:2.34%;top:61.89%;width:1px;height:1px;background:var(--spark);--o0:0.101;--o1:0.478;--d:8.7s;--t:2.3s"></i>
+<i style="left:47.32%;top:10.71%;width:1px;height:1px;background:var(--accent);--o0:0.047;--o1:0.49;--d:9.1s;--t:0.5s"></i>
+<i style="left:63.64%;top:8.22%;width:1px;height:1px;background:var(--spark);--o0:0.081;--o1:0.275;--d:9.0s;--t:4.9s"></i>
+<i style="left:95.09%;top:13.62%;width:1px;height:1px;background:var(--spark);--o0:0.099;--o1:0.488;--d:6.5s;--t:12.8s"></i>
+<i style="left:49.19%;top:95.66%;width:2px;height:2px;background:var(--spark);--o0:0.103;--o1:0.521;--d:5.5s;--t:4.6s"></i>
+<i style="left:75.62%;top:15.88%;width:1px;height:1px;background:var(--spark);--o0:0.105;--o1:0.3;--d:9.0s;--t:12.0s"></i>
+<i style="left:20.83%;top:26.29%;width:1px;height:1px;background:var(--spark);--o0:0.043;--o1:0.311;--d:6.3s;--t:12.2s"></i>
+<i style="left:67.97%;top:89.54%;width:1px;height:1px;background:var(--accent);--o0:0.049;--o1:0.52;--d:10.1s;--t:4.7s"></i>
+<i style="left:87.3%;top:55.52%;width:1px;height:1px;background:var(--spark);--o0:0.048;--o1:0.538;--d:10.0s;--t:5.1s"></i>
+<i style="left:79.77%;top:26.48%;width:1px;height:1px;background:var(--spark);--o0:0.069;--o1:0.474;--d:8.5s;--t:2.3s"></i>
+<i style="left:74.36%;top:4.83%;width:1px;height:1px;background:var(--spark);--o0:0.091;--o1:0.536;--d:9.7s;--t:8.6s"></i>
+<i style="left:31.26%;top:0.18%;width:2px;height:2px;background:var(--accent);--o0:0.089;--o1:0.487;--d:9.1s;--t:11.6s"></i>
+<i style="left:13.2%;top:22.73%;width:2px;height:2px;background:var(--spark);--o0:0.04;--o1:0.359;--d:5.9s;--t:4.6s"></i>
+</div>
 
 <main>
   <h1>Abhiraj Tiwari</h1>
