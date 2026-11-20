@@ -75,6 +75,11 @@ p { margin: 0 0 1rem; }
 .lead { color: var(--ink); }
 .quiet { color: var(--gray); }
 
+.about p { margin: 0; }
+.about p + p { margin-top: 0.55rem; }
+.about .quiet { margin-top: 1.4rem; font-style: italic; }
+.about b { font-weight: 500; color: var(--ink); }
+
 :focus-visible { outline: 1px solid var(--hint); outline-offset: 3px; border-radius: 2px; }
 
 /* ---------- writing ---------- */
