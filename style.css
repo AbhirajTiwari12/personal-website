@@ -77,6 +77,7 @@ p { margin: 0 0 1rem; }
 
 .about p { margin: 0; }
 .about p + p { margin-top: 0.55rem; }
+.about .now { margin-top: 1.4rem; }
 .about .quiet { margin-top: 1.4rem; font-style: italic; }
 .about b { font-weight: 500; color: var(--ink); }
 
